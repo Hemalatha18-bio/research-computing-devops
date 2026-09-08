@@ -14,6 +14,7 @@ This repository demonstrates those practices with sanitized examples that can be
 
 - **Infrastructure as Code:** Ansible playbooks for generic compute-node configuration
 - **Linux automation:** Bash-based system health collection
+- **Machine-readable operations data:** Python conversion of health-snapshot metadata to JSON
 - **Monitoring & observability:** dashboard and alert design concepts for HPC systems
 - **Operational documentation:** runbooks for high CPU and failed-service scenarios
 - **Testing:** automated validation of scripts and expected outputs
@@ -35,8 +36,10 @@ research-computing-devops/
 │   ├── failed_service.md
 │   └── high_cpu.md
 ├── scripts/
+│   ├── snapshot_to_json.py
 │   └── system_health.sh
 ├── tests/
+│   ├── test_snapshot_to_json.py
 │   └── test_system_health.py
 ├── .gitignore
 ├── LICENSE
@@ -89,6 +92,29 @@ bash scripts/system_health.sh
 
 The output is intended as a troubleshooting aid, not a replacement for a monitoring platform.
 
+For automation workflows, `scripts/snapshot_to_json.py` converts the snapshot header metadata to JSON. It accepts a snapshot file or stdin and validates required fields before emitting structured output.
+
+```bash
+bash scripts/system_health.sh > health_snapshot.txt
+python scripts/snapshot_to_json.py health_snapshot.txt
+```
+
+Or stream directly:
+
+```bash
+bash scripts/system_health.sh | python scripts/snapshot_to_json.py
+```
+
+Example JSON metadata:
+
+```json
+{
+  "hostname": "example-node",
+  "snapshot_type": "research-computing-health-snapshot",
+  "timestamp_utc": "2026-09-08T20:00:00Z"
+}
+```
+
 ## 3. Monitoring / Dashboard Design
 
 `monitoring/dashboard_design.md` describes a generic HPC operations dashboard organized around:
@@ -136,7 +162,7 @@ pytest -q
 
 CI checks:
 
-- Python tests for the health script;
+- Python tests for the health collector and JSON parser;
 - Bash syntax validation; and
 - Ansible playbook syntax validation.
 
@@ -159,12 +185,11 @@ This repository uses generic hosts, paths, services, and examples. Production or
 
 ## Skills Demonstrated
 
-Ansible · Infrastructure as Code · Bash · Linux · HPC concepts · monitoring/observability · troubleshooting · runbook documentation · pytest · GitHub Actions · reproducible engineering practices
+Ansible · Infrastructure as Code · Bash · Python · Linux · HPC concepts · monitoring/observability · troubleshooting · structured JSON output · runbook documentation · pytest · GitHub Actions · reproducible engineering practices
 
 ## Future Improvements
 
 - Add Molecule-based Ansible role testing.
-- Add a small Python parser that converts health snapshots to JSON.
 - Add a synthetic scheduler-metrics dataset and dashboard mockup.
 - Add an example CI/CD workflow for validating infrastructure documentation and YAML.
 - Add containerized local testing for the generic node configuration.
