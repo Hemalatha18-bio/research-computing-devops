@@ -1,0 +1,50 @@
+---
+- name: Configure generic research compute nodes
+  hosts: compute_nodes
+  become: true
+  gather_facts: true
+
+  vars:
+    demo_config_dir: /opt/research-computing-demo
+    demo_packages:
+      - git
+      - python3
+      - curl
+
+  tasks:
+    - name: Ensure baseline packages are present
+      ansible.builtin.package:
+        name: "{{ demo_packages }}"
+        state: present
+      tags:
+        - packages
+
+    - name: Ensure managed demo directory exists
+      ansible.builtin.file:
+        path: "{{ demo_config_dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+      tags:
+        - configuration
+
+    - name: Deploy managed node information file
+      ansible.builtin.copy:
+        dest: "{{ demo_config_dir }}/managed_by_ansible.txt"
+        owner: root
+        group: root
+        mode: "0644"
+        content: |
+          This is a generic portfolio example.
+          Managed by Ansible.
+          Host: {{ inventory_hostname }}
+          OS family: {{ ansible_facts['os_family'] | default('unknown') }}
+      notify: Record configuration update
+      tags:
+        - configuration
+
+  handlers:
+    - name: Record configuration update
+      ansible.builtin.debug:
+        msg: "Generic compute-node configuration changed on {{ inventory_hostname }}."
