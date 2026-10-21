@@ -1,5 +1,7 @@
 # Research Computing DevOps Lab
 
+[![CI](https://github.com/Hemalatha18-bio/research-computing-devops/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Hemalatha18-bio/research-computing-devops/actions/workflows/ci.yml)
+
 A public-portfolio style lab for demonstrating **HPC / research-computing automation, monitoring, troubleshooting, documentation, testing, and CI** with safe, generic examples.
 
 > This repository is independent portfolio work. It does **not** contain Washington University internal code, hostnames, inventories, dashboards, credentials, alert rules, cluster architecture, or proprietary configuration.
