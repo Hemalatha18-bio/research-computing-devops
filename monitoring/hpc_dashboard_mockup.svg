@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-label="Synthetic HPC monitoring dashboard showing compute availability, resource utilization, SLURM job states, completion, failure, and queue wait"><title>Synthetic HPC Observability Dashboard</title><rect x="0" y="0" width="1200" height="760" rx="0" fill="#0b1220" stroke="none"/>
+<rect x="0" y="0" width="1200" height="92" rx="0" fill="#111c30" stroke="none"/>
+<text x="42" y="44" fill="#f8fafc" font-size="22" font-weight="700" font-family="Arial, sans-serif">RESEARCH COMPUTING  /  OBSERVABILITY</text>
+<text x="42" y="72" fill="#94a3b8" font-size="13" font-weight="400" font-family="Arial, sans-serif">Synthetic portfolio demonstration  •  No live cluster or Datadog connection</text>
+<rect x="998" y="25" width="162" height="34" rx="17" fill="#17324a" stroke="none"/>
+<text x="1014" y="48" fill="#7dd3fc" font-size="13" font-weight="700" font-family="Arial, sans-serif">●  DEMO DATA ONLY</text>
+<rect x="35" y="112" width="277" height="118" rx="14" fill="#131e31" stroke="#2b3e54"/>
+<text x="57" y="142" fill="#b3c6da" font-size="15" font-weight="700" font-family="Arial, sans-serif">Compute nodes</text>
+<text x="56" y="179" fill="#f8fafc" font-size="36" font-weight="700" font-family="Arial, sans-serif">24 / 26</text>
+<text x="56" y="209" fill="#94a3b8" font-size="12" font-weight="400" font-family="Arial, sans-serif">92.3% available</text>
+<rect x="327" y="112" width="277" height="118" rx="14" fill="#131e31" stroke="#2b3e54"/>
+<text x="349" y="142" fill="#b3c6da" font-size="15" font-weight="700" font-family="Arial, sans-serif">CPU utilization</text>
+<text x="348" y="179" fill="#f8fafc" font-size="36" font-weight="700" font-family="Arial, sans-serif">71%</text>
+<text x="348" y="209" fill="#94a3b8" font-size="12" font-weight="400" font-family="Arial, sans-serif">Illustrative aggregate</text>
+<rect x="619" y="112" width="277" height="118" rx="14" fill="#131e31" stroke="#2b3e54"/>
+<text x="641" y="142" fill="#b3c6da" font-size="15" font-weight="700" font-family="Arial, sans-serif">Memory utilization</text>
+<text x="640" y="179" fill="#f8fafc" font-size="36" font-weight="700" font-family="Arial, sans-serif">63%</text>
+<text x="640" y="209" fill="#94a3b8" font-size="12" font-weight="400" font-family="Arial, sans-serif">Illustrative aggregate</text>
+<rect x="911" y="112" width="277" height="118" rx="14" fill="#131e31" stroke="#2b3e54"/>
+<text x="933" y="142" fill="#b3c6da" font-size="15" font-weight="700" font-family="Arial, sans-serif">GPU utilization</text>
+<text x="932" y="179" fill="#f8fafc" font-size="36" font-weight="700" font-family="Arial, sans-serif">82%</text>
+<text x="932" y="209" fill="#94a3b8" font-size="12" font-weight="400" font-family="Arial, sans-serif">Synthetic workload</text>
+<rect x="35" y="250" width="555" height="216" rx="14" fill="#131e31" stroke="#2b3e54"/>
+<text x="57" y="280" fill="#b3c6da" font-size="15" font-weight="700" font-family="Arial, sans-serif">SLURM JOB STATES   •   synthetic 6-job fixture</text>
+<text x="58" y="309" fill="#cbd5e1" font-size="14" font-weight="400" font-family="Arial, sans-serif">Completed</text>
+<rect x="165" y="298" width="340" height="15" rx="4" fill="#21324a" stroke="none"/>
+<rect x="165" y="298" width="290" height="15" rx="4" fill="#22c55e" stroke="none"/>
+<text x="525" y="310" fill="#f8fafc" font-size="14" font-weight="700" font-family="Arial, sans-serif">2</text>
+<text x="58" y="340" fill="#cbd5e1" font-size="14" font-weight="400" font-family="Arial, sans-serif">Running</text>
+<rect x="165" y="329" width="340" height="15" rx="4" fill="#21324a" stroke="none"/>
+<rect x="165" y="329" width="145" height="15" rx="4" fill="#38bdf8" stroke="none"/>
+<text x="525" y="341" fill="#f8fafc" font-size="14" font-weight="700" font-family="Arial, sans-serif">1</text>
+<text x="58" y="371" fill="#cbd5e1" font-size="14" font-weight="400" font-family="Arial, sans-serif">Pending</text>
+<rect x="165" y="360" width="340" height="15" rx="4" fill="#21324a" stroke="none"/>
+<rect x="165" y="360" width="145" height="15" rx="4" fill="#fbbf24" stroke="none"/>
+<text x="525" y="372" fill="#f8fafc" font-size="14" font-weight="700" font-family="Arial, sans-serif">1</text>
+<text x="58" y="402" fill="#cbd5e1" font-size="14" font-weight="400" font-family="Arial, sans-serif">Failed</text>
+<rect x="165" y="391" width="340" height="15" rx="4" fill="#21324a" stroke="none"/>
+<rect x="165" y="391" width="145" height="15" rx="4" fill="#fb7185" stroke="none"/>
+<text x="525" y="403" fill="#f8fafc" font-size="14" font-weight="700" font-family="Arial, sans-serif">1</text>
+<text x="58" y="433" fill="#cbd5e1" font-size="14" font-weight="400" font-family="Arial, sans-serif">Cancelled</text>
+<rect x="165" y="422" width="340" height="15" rx="4" fill="#21324a" stroke="none"/>
+<rect x="165" y="422" width="145" height="15" rx="4" fill="#a78bfa" stroke="none"/>
+<text x="525" y="434" fill="#f8fafc" font-size="14" font-weight="700" font-family="Arial, sans-serif">1</text>
+<rect x="610" y="250" width="555" height="216" rx="14" fill="#131e31" stroke="#2b3e54"/>
+<text x="632" y="280" fill="#b3c6da" font-size="15" font-weight="700" font-family="Arial, sans-serif">JOB SUBMISSIONS AND COMPLETIONS  •   illustrative trend</text>
+<path d="M 651 322 H 1126" fill="none" stroke="#26364a" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 651 356 H 1126" fill="none" stroke="#26364a" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 651 390 H 1126" fill="none" stroke="#26364a" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 651 424 H 1126" fill="none" stroke="#26364a" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 651 420 L 718 385 L 785 401 L 853 348 L 920 366 L 989 314 L 1058 337 L 1126 307" fill="none" stroke="#38bdf8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 651 432 L 718 417 L 785 398 L 853 407 L 920 379 L 989 395 L 1058 360 L 1126 375" fill="none" stroke="#34d399" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="662" y="450" fill="#7dd3fc" font-size="12" font-weight="400" font-family="Arial, sans-serif">Blue: submitted</text>
+<text x="831" y="450" fill="#6ee7b7" font-size="12" font-weight="400" font-family="Arial, sans-serif">Green: completed</text>
+<rect x="35" y="484" width="358" height="191" rx="14" fill="#131e31" stroke="#2b3e54"/>
+<text x="57" y="514" fill="#b3c6da" font-size="15" font-weight="700" font-family="Arial, sans-serif">TERMINAL JOB COMPLETION</text>
+<text x="61" y="567" fill="#4ade80" font-size="53" font-weight="700" font-family="Arial, sans-serif">50%</text>
+<text x="61" y="606" fill="#cbd5e1" font-size="16" font-weight="400" font-family="Arial, sans-serif">2 completed / 4 terminal</text>
+<text x="61" y="647" fill="#94a3b8" font-size="12" font-weight="400" font-family="Arial, sans-serif">Pending/running excluded</text>
+<rect x="411" y="484" width="358" height="191" rx="14" fill="#131e31" stroke="#2b3e54"/>
+<text x="433" y="514" fill="#b3c6da" font-size="15" font-weight="700" font-family="Arial, sans-serif">TERMINAL JOB FAILURE</text>
+<text x="437" y="567" fill="#fda4af" font-size="53" font-weight="700" font-family="Arial, sans-serif">25%</text>
+<text x="437" y="606" fill="#cbd5e1" font-size="16" font-weight="400" font-family="Arial, sans-serif">1 failed / 4 terminal</text>
+<text x="437" y="647" fill="#94a3b8" font-size="12" font-weight="400" font-family="Arial, sans-serif">Cancelled included in denominator</text>
+<rect x="787" y="484" width="378" height="191" rx="14" fill="#131e31" stroke="#2b3e54"/>
+<text x="809" y="514" fill="#b3c6da" font-size="15" font-weight="700" font-family="Arial, sans-serif">QUEUE WAIT  •  STARTED JOBS</text>
+<text x="813" y="567" fill="#f8fafc" font-size="40" font-weight="700" font-family="Arial, sans-serif">13.75 min</text>
+<text x="813" y="606" fill="#cbd5e1" font-size="14" font-weight="400" font-family="Arial, sans-serif">Mean submitted-to-started wait</text>
+<text x="813" y="647" fill="#94a3b8" font-size="12" font-weight="400" font-family="Arial, sans-serif">Synthetic record-level timestamps</text>
+<text x="36" y="721" fill="#94a3b8" font-size="13" font-weight="400" font-family="Arial, sans-serif">PORTFOLIO MOCKUP — Illustrative utilization and trend only. Job-state and rate tiles use the checked-in synthetic fixture.</text></svg>
