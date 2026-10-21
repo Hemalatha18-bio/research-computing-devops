@@ -10,9 +10,9 @@ A public-portfolio style lab for demonstrating **HPC / research-computing automa
 
 *Illustrative research-computing dashboard. Node/CPU/memory/GPU tiles and trend lines are invented visual examples; the job-state counts, job rates and queue-wait figure come from the included synthetic six-job fixture. No real cluster or Datadog system is connected.*
 
-**[Explore the interactive dashboard](monitoring/interactive_dashboard.html)** · [Dashboard design and metric definitions](monitoring/slurm_dashboard_demo.md)
+**[Open the published HPC dashboard](https://hemalatha18-bio.github.io/research-computing-devops/)** *(available after GitHub Pages deployment is enabled)* · [Interactive HTML source](monitoring/interactive_dashboard.html) · [Dashboard design and metric definitions](monitoring/slurm_dashboard_demo.md)
 
-To try the interactive version: download `monitoring/interactive_dashboard.html` and open it in a browser. GitHub's source-file preview does not execute embedded JavaScript. The HTML is fully self-contained, with synthetic records embedded locally, so it runs offline without services or credentials.
+The repository now contains a standalone `index.html` and a GitHub Actions Pages deployment workflow (`.github/workflows/deploy-pages.yml`). **Initial setup:** repository Settings → Pages → Build and deployment → Source: **GitHub Actions**. After a successful workflow run, the hosted dashboard is available at the link above. Alternatively download `monitoring/interactive_dashboard.html` and open it locally. The site is self-contained, uses synthetic records, and does not require credentials.
 
 ## Why This Project
 
