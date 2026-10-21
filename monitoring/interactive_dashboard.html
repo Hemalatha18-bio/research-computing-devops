@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HPC Observability — Synthetic Demo</title>
+<style>
+:root{color-scheme:dark;font:15px system-ui,sans-serif;background:#0b1220;color:#e5edf8}*{box-sizing:border-box}body{margin:0;padding:30px;max-width:1330px;margin:auto}h1{margin:0;font-size:28px}p{color:#aabbd1}header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}.tag{border:1px solid #4881a8;border-radius:100px;color:#7dd3fc;padding:8px 13px;font-weight:700}label{color:#c4d4e9}select,button{background:#1b3049;color:#eef6ff;border:1px solid #426080;border-radius:8px;padding:9px;cursor:pointer}.toolbar{display:flex;align-items:center;gap:12px;margin:28px 0;flex-wrap:wrap}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.card{background:#142238;border:1px solid #2d425f;border-radius:14px;padding:20px;min-width:0}.card h2{font-size:15px;font-weight:600;color:#b8cbe1;margin:0 0 12px}.metric{font-size:37px;font-weight:750}.note{font-size:12px;color:#9aadc6;margin-top:12px}.panels{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.bar{display:flex;align-items:center;gap:10px;margin:10px 0}.bar span:first-child{width:90px}.track{height:17px;background:#263850;flex:1;border-radius:4px;overflow:hidden}.fill{height:100%;background:#38bdf8}.bar strong{width:25px;text-align:right}table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid #34445e;text-align:left;padding:9px}th{color:#aabed6}svg{width:100%;height:auto}.wide{margin-top:14px}@media(max-width:950px){.grid{grid-template-columns:repeat(2,1fr)}.panels{grid-template-columns:1fr}}@media(max-width:520px){body{padding:15px}.grid{grid-template-columns:1fr}}a{color:#7dd3fc}
+</style></head>
+<body><header><div><h1>Research Computing · HPC Observability</h1><p>Interactive portfolio mockup · fabricated records · zero external services</p></div><span class="tag">● SYNTHETIC DEMO ONLY</span></header>
+<div class="toolbar"><label for="partition">Partition</label><select id="partition"><option value="all">All partitions</option></select><label for="state">Job state</label><select id="state"><option value="all">All states</option></select><button id="reset">Reset filters</button><span id="filtered" aria-live="polite"></span></div>
+<div class="grid"><section class="card"><h2>Jobs in selection</h2><div id="jobs" class="metric"></div><div class="note">Synthetic CSV fixture</div></section><section class="card"><h2>Terminal completion rate</h2><div id="completion" class="metric"></div><div class="note">COMPLETED / terminal jobs</div></section><section class="card"><h2>Terminal failure rate</h2><div id="failure" class="metric"></div><div class="note">(FAILED + TIMEOUT) / terminal jobs</div></section><section class="card"><h2>Average queue wait</h2><div id="wait" class="metric"></div><div class="note">Submitted → started, started jobs only</div></section></div>
+<div class="panels"><section class="card"><h2>SLURM job states</h2><div id="states"></div></section><section class="card"><h2>Submissions vs completions (hourly UTC)</h2><svg id="trend" role="img" aria-label="Hourly submission and completion counts" viewBox="0 0 540 220"></svg><div class="note">Blue: submitted · Green: completed. Event timestamps, not snapshot sums.</div></section></div>
+<section class="card wide"><h2>Job detail (filterable)</h2><div style="overflow-x:auto"><table><thead><tr><th>Job</th><th>Partition</th><th>State</th><th>Submitted (UTC)</th><th>Started (UTC)</th><th>Finished (UTC)</th></tr></thead><tbody id="rows"></tbody></table></div></section>
+<p><strong>Safety and interpretation:</strong> This page uses only six embedded fictional records matching <code>monitoring/synthetic_slurm_jobs.csv</code>. It does not poll a cluster, access Datadog, or report employer data. Filters recompute denominators: a state-filtered completion rate is not the overall cluster rate. No real-time telemetry or production alert thresholds are included.</p>
+<script>
+"use strict";
+const data=[
+{job:"1001",submitted:"2026-10-01T08:00:00Z",started:"2026-10-01T08:05:00Z",finished:"2026-10-01T08:35:00Z",state:"COMPLETED",partition:"compute"},
+{job:"1002",submitted:"2026-10-01T08:10:00Z",started:"2026-10-01T08:30:00Z",finished:"2026-10-01T08:50:00Z",state:"FAILED",partition:"compute"},
+{job:"1003",submitted:"2026-10-01T08:15:00Z",started:"",finished:"",state:"PENDING",partition:"compute"},
+{job:"1004",submitted:"2026-10-01T08:20:00Z",started:"2026-10-01T08:25:00Z",finished:"",state:"RUNNING",partition:"gpu"},
+{job:"1005",submitted:"2026-10-01T08:35:00Z",started:"2026-10-01T09:00:00Z",finished:"2026-10-01T09:15:00Z",state:"COMPLETED",partition:"gpu"},
+{job:"1006",submitted:"2026-10-01T09:00:00Z",started:"",finished:"",state:"CANCELLED",partition:"compute"}];
+const states=["PENDING","RUNNING","COMPLETED","FAILED","CANCELLED","TIMEOUT"], terminal=new Set(["COMPLETED","FAILED","CANCELLED","TIMEOUT"]);
+const $=id=>document.getElementById(id);function option(sel,v){const el=document.createElement("option");el.value=v;el.textContent=v;sel.appendChild(el)}
+[...new Set(data.map(x=>x.partition))].sort().forEach(x=>option($("partition"),x));states.forEach(x=>option($("state"),x));
+const pct=(n,d)=>d?((100*n/d).toFixed(1).replace(/\.0$/,"")+"%"):"—";
+function make(tag,txt){const el=document.createElement(tag);el.textContent=txt;return el}
+function render(){
+const filtered=data.filter(x=>($("partition").value==="all"||x.partition===$("partition").value)&&($("state").value==="all"||x.state===$("state").value));
+const counts=Object.fromEntries(states.map(s=>[s,filtered.filter(x=>x.state===s).length]));const end=filtered.filter(x=>terminal.has(x.state));const started=filtered.filter(x=>x.started);
+$("jobs").textContent=filtered.length;$("completion").textContent=pct(counts.COMPLETED,end.length);$("failure").textContent=pct(counts.FAILED+counts.TIMEOUT,end.length);
+$("wait").textContent=started.length?(started.reduce((n,x)=>n+(Date.parse(x.started)-Date.parse(x.submitted))/60000,0)/started.length).toFixed(2)+" min":"—";
+$("filtered").textContent=filtered.length+" of "+data.length+" jobs shown";$("states").replaceChildren();
+states.forEach(s=>{const line=make("div","");line.className="bar";line.append(make("span",s));const track=make("div","");track.className="track";const fill=make("div","");fill.className="fill";fill.style.width=filtered.length?(100*counts[s]/filtered.length)+"%":"0%";track.append(fill);line.append(track,make("strong",counts[s]));$("states").append(line)});
+$("rows").replaceChildren();filtered.forEach(x=>{const tr=document.createElement("tr");[x.job,x.partition,x.state,x.submitted,x.started||"—",x.finished||"—"].forEach(s=>tr.append(make("td",s)));$("rows").append(tr)});
+const hours=[...new Set(filtered.flatMap(x=>[x.submitted.slice(0,13),x.state==="COMPLETED"&&x.finished?x.finished.slice(0,13):null].filter(Boolean)))].sort();
+const svg=$("trend");svg.replaceChildren();const ns="http://www.w3.org/2000/svg";function shape(tag,attrs){const e=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));svg.append(e);return e}
+if(!hours.length){shape("text",{x:20,y:110,fill:"#aabbd1"}).textContent="No jobs in selection";return}
+const bins=hours.map(h=>({hour:h,sub:filtered.filter(x=>x.submitted.startsWith(h)).length,done:filtered.filter(x=>x.state==="COMPLETED"&&x.finished.startsWith(h)).length}));const max=Math.max(1,...bins.flatMap(x=>[x.sub,x.done]));const x=i=>55+(bins.length===1?200:i*420/(bins.length-1));const y=v=>175-v*125/max;
+[0,1,2,3,4].forEach(i=>shape("line",{x1:55,x2:505,y1:175-i*31.25,y2:175-i*31.25,stroke:"#31445c"}));
+for(const [key,color] of [["sub","#38bdf8"],["done","#34d399"]]){shape("polyline",{points:bins.map((b,i)=>x(i)+","+y(b[key])).join(" "),fill:"none",stroke:color,"stroke-width":4});bins.forEach((b,i)=>shape("circle",{cx:x(i),cy:y(b[key]),r:5,fill:color}))}
+bins.forEach((b,i)=>{const label=shape("text",{x:x(i),y:202,fill:"#aabbd1","font-size":13,"text-anchor":"middle"});label.textContent=b.hour.slice(11)+":00"});
+}
+$("partition").addEventListener("change",render);$("state").addEventListener("change",render);$("reset").addEventListener("click",()=>{$("partition").value="all";$("state").value="all";render()});render();
+</script></body></html>
