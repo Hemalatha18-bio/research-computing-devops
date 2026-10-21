@@ -4,6 +4,14 @@ A public-portfolio style lab for demonstrating **HPC / research-computing automa
 
 > This repository is independent portfolio work. It does **not** contain Washington University internal code, hostnames, inventories, dashboards, credentials, alert rules, cluster architecture, or proprietary configuration.
 
+## HPC Observability Dashboard — Portfolio Preview
+
+![Synthetic HPC Observability dashboard](monitoring/hpc_dashboard_mockup.svg)
+
+*Illustrative research-computing dashboard. Node/CPU/memory/GPU tiles and trend lines are invented visual examples; the job-state counts, job rates and queue-wait figure come from the included synthetic six-job fixture. No real cluster or Datadog system is connected.*
+
+[View the dashboard design and metric definitions](monitoring/slurm_dashboard_demo.md).
+
 ## Why This Project
 
 Scientific computing environments need more than fast hardware. They also need repeatable configuration, observable systems, clear runbooks, reliable automation, and documentation that helps teams troubleshoot problems consistently.
@@ -31,6 +39,7 @@ research-computing-devops/
 │   └── playbooks/
 │       └── configure_compute_node.yml
 ├── monitoring/
+│   ├── hpc_dashboard_mockup.svg
 │   ├── dashboard_design.md
 │   ├── slurm_dashboard_demo.md
 │   └── synthetic_slurm_jobs.csv
