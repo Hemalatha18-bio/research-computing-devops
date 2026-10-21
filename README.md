@@ -15,7 +15,7 @@ This repository demonstrates those practices with sanitized examples that can be
 - **Infrastructure as Code:** Ansible playbooks for generic compute-node configuration
 - **Linux automation:** Bash-based system health collection
 - **Machine-readable operations data:** Python conversion of health-snapshot metadata to JSON
-- **Monitoring & observability:** dashboard and alert design concepts for HPC systems
+- **Monitoring & observability:** dashboard and alert design concepts for HPC systems, plus an executable synthetic SLURM metrics example
 - **Operational documentation:** runbooks for high CPU and failed-service scenarios
 - **Testing:** automated validation of scripts and expected outputs
 - **Continuous integration:** GitHub Actions checks for Python tests, shell syntax, and Ansible syntax
@@ -31,14 +31,18 @@ research-computing-devops/
 │   └── playbooks/
 │       └── configure_compute_node.yml
 ├── monitoring/
-│   └── dashboard_design.md
+│   ├── dashboard_design.md
+│   ├── slurm_dashboard_demo.md
+│   └── synthetic_slurm_jobs.csv
 ├── runbooks/
 │   ├── failed_service.md
 │   └── high_cpu.md
 ├── scripts/
+│   ├── slurm_metrics_demo.py
 │   ├── snapshot_to_json.py
 │   └── system_health.sh
 ├── tests/
+│   ├── test_slurm_metrics_demo.py
 │   ├── test_snapshot_to_json.py
 │   └── test_system_health.py
 ├── .gitignore
@@ -129,6 +133,15 @@ Example JSON metadata:
 
 The design intentionally distinguishes **high utilization** from **unhealthy behavior**. In HPC, high CPU can be expected during productive workloads; useful monitoring requires context such as load duration, scheduler state, memory pressure, process ownership, and service impact.
 
+### Executable synthetic SLURM monitoring demo
+
+A separate [SLURM dashboard demonstration](monitoring/slurm_dashboard_demo.md) adds six **synthetic** job records, a Python CSV-to-JSON aggregator and pytest coverage. It illustrates job-state summaries, terminal-job completion and failure rates, queue wait and suggested dashboard widgets. The example **does not connect to a cluster or to Datadog**, and none of its metrics describe workplace infrastructure.
+
+```bash
+python scripts/slurm_metrics_demo.py monitoring/synthetic_slurm_jobs.csv
+pytest -q tests/test_slurm_metrics_demo.py
+```
+
 ## 4. Operational Runbooks
 
 Two example runbooks show how to document investigation paths without jumping directly to remediation:
@@ -190,7 +203,6 @@ Ansible · Infrastructure as Code · Bash · Python · Linux · HPC concepts · 
 ## Future Improvements
 
 - Add Molecule-based Ansible role testing.
-- Add a synthetic scheduler-metrics dataset and dashboard mockup.
 - Add an example CI/CD workflow for validating infrastructure documentation and YAML.
 - Add containerized local testing for the generic node configuration.
 
