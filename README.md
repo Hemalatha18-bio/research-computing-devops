@@ -10,7 +10,9 @@ A public-portfolio style lab for demonstrating **HPC / research-computing automa
 
 *Illustrative research-computing dashboard. Node/CPU/memory/GPU tiles and trend lines are invented visual examples; the job-state counts, job rates and queue-wait figure come from the included synthetic six-job fixture. No real cluster or Datadog system is connected.*
 
-[View the dashboard design and metric definitions](monitoring/slurm_dashboard_demo.md).
+**[Explore the interactive dashboard](monitoring/interactive_dashboard.html)** · [Dashboard design and metric definitions](monitoring/slurm_dashboard_demo.md)
+
+To try the interactive version: download `monitoring/interactive_dashboard.html` and open it in a browser. GitHub's source-file preview does not execute embedded JavaScript. The HTML is fully self-contained, with synthetic records embedded locally, so it runs offline without services or credentials.
 
 ## Why This Project
 
@@ -39,6 +41,7 @@ research-computing-devops/
 │   └── playbooks/
 │       └── configure_compute_node.yml
 ├── monitoring/
+│   ├── interactive_dashboard.html
 │   ├── hpc_dashboard_mockup.svg
 │   ├── dashboard_design.md
 │   ├── slurm_dashboard_demo.md
@@ -144,7 +147,7 @@ The design intentionally distinguishes **high utilization** from **unhealthy beh
 
 ### Executable synthetic SLURM monitoring demo
 
-A separate [SLURM dashboard demonstration](monitoring/slurm_dashboard_demo.md) adds six **synthetic** job records, a Python CSV-to-JSON aggregator and pytest coverage. It illustrates job-state summaries, terminal-job completion and failure rates, queue wait and suggested dashboard widgets. The example **does not connect to a cluster or to Datadog**, and none of its metrics describe workplace infrastructure.
+A separate [SLURM dashboard demonstration](monitoring/slurm_dashboard_demo.md) adds six **synthetic** job records, a Python CSV-to-JSON aggregator and pytest coverage. The [interactive HTML dashboard](monitoring/interactive_dashboard.html) provides filters, state counts, queue-wait calculations, a timestamp-based trend and a job table using matching embedded demo records. It illustrates job-state summaries, terminal-job completion and failure rates, queue wait and suggested dashboard widgets. The example **does not connect to a cluster or to Datadog**, and none of its metrics describe workplace infrastructure.
 
 ```bash
 python scripts/slurm_metrics_demo.py monitoring/synthetic_slurm_jobs.csv
